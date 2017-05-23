@@ -1,0 +1,71 @@
+<div class="container pagecontainer">
+    <div class="page-header">
+        <h1>{{ pgTitle }} Expense</h1>
+    </div>
+
+    <form [formGroup]="expenseForm" (ngSubmit)="saveExpense(expenseForm.value)" class="form-horizontal" novalidate autocomplete="off">
+        <div class="form-group" [ngClass]="{'has-error': expenseForm.get('expdate').invalid && expenseForm.get('expdate').dirty}">
+            <label for="expdt" class="col-sm-2 control-label">Date</label>
+            <div class="input-group col-sm-10">
+                <div class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></div>
+                <input type="date" class="form-control" id="expdt" [formControl]="expdate" placeholder="yyyy-mm-dd">
+            </div>
+            <div class="text-danger" *ngIf="expenseForm.get('expdate').dirty && expenseForm.get('expdate').errors">
+                <span class="col-sm-2"></span>
+                <span class="col-sm-10" style="padding:4px 0 0" *ngIf="expenseForm.get('expdate').errors.required">
+                    Please enter date
+                </span>
+                <span class="col-sm-10" style="padding:4px 0 0" *ngIf="expenseForm.get('expdate').errors.pattern">
+                    Please enter a valid date
+                </span>
+            </div>
+        </div>
+        <div class="form-group" [ngClass]="{'has-error': expenseForm.get('expaccount').invalid && expenseForm.get('expaccount').dirty}">
+            <label for="exptyp" class="col-sm-2 control-label">Account</label>
+            <div class="input-group col-sm-10">
+                <div class="input-group-addon"><i class="glyphicon glyphicon-list-alt"></i></div>
+                <select class="form-control" [formControl]="expaccount">
+                    <option></option>
+                    <option *ngFor="let a of acc" >{{a}}</option>
+                </select>
+            </div>
+            <div class="text-danger" *ngIf="expenseForm.get('expaccount').dirty && expenseForm.get('expaccount').errors">
+                <span class="col-sm-2"></span>
+                <span class="col-sm-10" style="padding:4px 0 0" *ngIf="expenseForm.get('expaccount').errors.required">
+                    Please select expense account
+                </span>
+            </div>
+        </div>
+        <div class="form-group" [ngClass]="{'has-error': expenseForm.get('expamt').invalid && expenseForm.get('expamt').dirty}">
+            <label for="expamt" class="col-sm-2 control-label">Amount</label>
+            <div class="input-group col-sm-10">
+                <div class="input-group-addon">$</div>
+                <input type="number" class="form-control" id="expamt" [formControl]="expamt" placeholder="Enter amount">
+            </div>
+            <div class="text-danger" *ngIf="expenseForm.get('expamt').dirty && expenseForm.get('expamt').errors">
+                <span class="col-sm-2"></span>
+                <span class="col-sm-10" style="padding:4px 0 0" *ngIf="expenseForm.get('expamt').errors.required">
+                    Please enter amount
+                </span>
+                <span class="col-sm-10" style="padding:4px 0 0" *ngIf="expenseForm.get('expamt').errors.pattern">
+                    Please enter a valid amount
+                </span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="expdesc" class="col-sm-2 control-label">Description</label>
+            <div class="input-group col-sm-10">
+                <textarea class="form-control" id="expdesc" rows="3" [formControl]="expdesc" placeholder="Description"></textarea>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label"></label>
+            <div class="col-sm-10">
+                <button type="submit" [disabled]="expenseForm.invalid" class="btn btn-primary">{{ btnLbl }}</button>
+                <button type="reset" class="btn btn-default">Cancel</button>
+                <button type="reset" class="btn btn-default" *ngIf="btnLbl == 'Update'" (click)="onBack()">Back</button>
+            </div>
+        </div>
+    </form>
+
+</div>
