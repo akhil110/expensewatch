@@ -1,0 +1,65 @@
+<div class="container pagecontainer">
+    <div class="page-header">
+        <h1>My Profile</h1>
+    </div>
+
+    <form [formGroup]="profileForm" (ngSubmit)="updateUser(profileForm.value)" class="form-horizontal" novalidate autocomplete="off">
+        <div class="form-group">
+            <label for="username" class="col-sm-2 control-label">Username</label>
+            <div class="input-group col-sm-10">
+                <div class="input-group-addon"><i class="glyphicon glyphicon glyphicon-user"></i></div>
+                <div class="form-ele">{{ userObj.username }}</div>
+            </div>
+        </div>
+
+        <div class="form-group" [ngClass]="{'has-error': profileForm.get('firstname').invalid && profileForm.get('firstname').dirty}">
+            <label for="fname" class="col-sm-2 control-label">First Name</label>
+            <div class="input-group col-sm-10">
+                <div class="input-group-addon"><i class="glyphicon glyphicon-font"></i></div>
+                <input type="text" class="form-control" id="fname" [formControl]="firstname" placeholder="First Name">
+            </div>
+            <div class="text-danger" *ngIf="profileForm.get('firstname').dirty && profileForm.get('firstname').invalid">
+                <span class="col-sm-2"></span>
+                <span class="col-sm-10" style="padding:4px 0 0">Please enter your first name</span>
+            </div>
+        </div>
+        <div class="form-group" [ngClass]="{'has-error': profileForm.get('lastname').invalid && profileForm.get('lastname').dirty}">
+            <label for="lname" class="col-sm-2 control-label">Last Name</label>
+            <div class="input-group col-sm-10">
+                <div class="input-group-addon"><i class="glyphicon glyphicon glyphicon-bold"></i></div>
+                <input type="text" class="form-control" id="lname" [formControl]="lastname" placeholder="Last Name">
+            </div>
+            <div class="text-danger" *ngIf="profileForm.get('lastname').dirty && profileForm.get('lastname').invalid">
+                <span class="col-sm-2"></span>
+                <span class="col-sm-10" style="padding:4px 0 0">Please enter your last name</span>
+            </div>
+        </div>
+        <div class="form-group" [ngClass]="{'has-error': profileForm.get('email').invalid && profileForm.get('email').dirty}">
+            <label for="lname" class="col-sm-2 control-label">Email</label>
+            <div class="input-group col-sm-10">
+                <div class="input-group-addon">@</div>
+                <input type="text" class="form-control" id="lname" [formControl]="email" placeholder="Email">
+            </div>
+            <div class="text-danger" *ngIf="profileForm.get('email').dirty && profileForm.get('email').invalid">
+                <span class="col-sm-2"></span>
+                <span class="col-sm-10" style="padding:4px 0 0">Please enter a valid email</span>
+            </div>
+        </div>
+        
+        <div class="form-group">
+            <label for="password" class="col-sm-2 control-label">Last Login</label>
+            <div class="input-group col-sm-10">
+                <div class="input-group-addon"><i class="glyphicon glyphicon glyphicon-calendar"></i></div>
+                <div class="form-ele">{{ userObj.lastlogin | date:'medium' }}</div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label"></label>
+            <div class="col-sm-10">
+                <button type="submit" [disabled]="profileForm.invalid" class="btn btn-primary">Update</button>
+                <button type="reset" class="btn btn-default">Cancel</button>
+            </div>
+        </div>
+    </form>
+
+</div>
