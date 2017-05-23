@@ -1,0 +1,48 @@
+<!-- Fixed navbar -->
+<nav class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" *ngIf="!authService.isLoggedIn()" routerLink="login">Expensewatch</a>
+            <a class="navbar-brand" *ngIf="authService.isLoggedIn()" routerLink="report">Expensewatch</a>
+        </div>
+        <div id="navbar" class="collapse navbar-collapse">
+            <ul class="nav navbar-nav">
+                
+                <li ><a routerLink="report" routerLinkActive="active">Report</a></li>
+                <li><a routerLink="expense" routerLinkActive="active">Add Expense</a></li>
+                <li><a routerLink="about" routerLinkActive="active">About</a></li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li *ngIf="!authService.isLoggedIn()">
+                    <a routerLink="login" routerLinkActive="active">Log In</a>
+                </li>
+                <li *ngIf="authService.isLoggedIn()">
+                    <ul class="menu">
+                        <li>
+                            Welcome {{ authService.currentUser.firstname }}
+                            <ul>
+                                <li routerLink="profile">My Profile</li>
+                                <li routerLink="password">Change Password</li>
+                                <li routerLink="logout">Logout</li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<router-outlet></router-outlet>
+
+<footer class="footer">
+    <div class="container">
+        <p class="text-muted">&copy; Copyright 2017 | sample MEAN app</p>
+    </div>
+</footer>
