@@ -20,8 +20,6 @@ export  class AuthGuard implements CanActivate {
             return true;
         }
 
-        // Retain the attempted URL for redirection
-        //this.authService.redirectUrl = url;
         this.toastr.info("Please login to access this page.")
         this.router.navigate(['/login']);
         return false;
