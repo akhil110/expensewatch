@@ -1,0 +1,41 @@
+<div class="container pagecontainer">
+    <div class="page-header">
+        <h1>View Expense</h1>
+    </div>
+    <form class="form-horizontal">
+        <div class="form-group">
+            <label for="expdt" class="col-sm-2 control-label">Date</label>
+            <div class="input-group col-sm-10">
+                <div class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></div>
+                <div class="form-ele">{{ expense?.expensedate | date: 'd MMM y' }}</div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="exptyp" class="col-sm-2 control-label">Account</label>
+            <div class="input-group col-sm-10">
+                <div class="input-group-addon"><i class="glyphicon glyphicon-list-alt"></i></div>
+                <div class="form-ele">{{ expense?.expensetype }}</div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="expamt" class="col-sm-2 control-label">Amount</label>
+            <div class="input-group col-sm-10">
+                <div class="input-group-addon">$</div>
+                <div class="form-ele">{{ expense?.expenseamt | currency: 'USD':true }}</div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="expdesc" class="col-sm-2 control-label">Description</label>
+            <div class="input-group col-sm-10">
+                <div class="form-ele">{{ expense?.expensedesc }}</div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label"></label>
+            <div class="col-sm-10">
+                <button type="button" (click)="onBack()" class="btn btn-default">Back</button>
+            </div>
+        </div>
+    </form>
+
+</div>
