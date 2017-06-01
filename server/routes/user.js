@@ -61,6 +61,8 @@ exports.login = function(req, res, next){
 			expiresIn: config.tokenexp
 		    });
                     
+                    let last_login = user.lastlogin;
+                    
                     // login success update last login
                     user.lastlogin = new Date();
                 
@@ -70,7 +72,7 @@ exports.login = function(req, res, next){
 
                         res.status(201).json({
                             success: true,
-                            message: {'userid': user._id, 'username': user.username, 'firstname': user.firstname, 'lastlogin': user.lastlogin},
+                            message: {'userid': user._id, 'username': user.username, 'firstname': user.firstname, 'lastlogin': last_login},
                             token: token
                         });
                     });
