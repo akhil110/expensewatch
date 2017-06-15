@@ -57,7 +57,7 @@ export class ProfileComponent implements OnInit {
     });
   }
 
-  updateUser(){
+  updateUser(formdata:any): void {
     if (this.profileForm.dirty && this.profileForm.valid) {
       this.userService.updateUser(this.userObj.userid, this.profileForm.value)
         .subscribe(data => {
