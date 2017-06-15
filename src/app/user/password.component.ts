@@ -50,7 +50,7 @@ export class PasswordComponent implements OnInit {
     });
   }
 
-  updatePassword(){
+  updatePassword(formdata:any): void {
     if (this.passwordForm.dirty && this.passwordForm.valid) {
       let theForm = this.passwordForm.value;
       const thePass = this.passwordForm.value.passwordGroup.password;
