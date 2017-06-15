@@ -25,7 +25,7 @@ export class LoginComponent {
   });
 
 
-  loginUser(){
+  loginUser(formdata:any): void {
     if (this.loginForm.dirty && this.loginForm.valid) {
       this.authService.login(this.loginForm.value)
         .subscribe(data => {
