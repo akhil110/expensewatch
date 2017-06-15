@@ -78,7 +78,7 @@ export class ExpenseComponent implements OnInit {
     });
   }
 
-  saveExpense(){
+  saveExpense(formdata:any): void {
     if (this.expenseForm.valid) {
       const theForm = this.expenseForm.value;
       if (this.expid !== '') {
