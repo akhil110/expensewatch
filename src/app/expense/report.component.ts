@@ -100,7 +100,7 @@ export class ReportComponent implements OnInit {
     dt2Control.updateValueAndValidity();
   }
 
-  getReport(){
+  getReport(formdata:any): void {
     if (this.reportForm.valid) {
       if (this.reportForm.value.report === 'opt2' && (new Date(this.reportForm.value.startdt) > new Date(this.reportForm.value.enddt))){
         this.toastr.error('Start date cannot be greater than end date.');
