@@ -53,7 +53,7 @@ export class RegisterComponent implements OnInit {
     });
   }
 
-  registerUser(){
+  registerUser(formdata:any): void {
     if (this.registerForm.dirty && this.registerForm.valid) {
       let theForm = this.registerForm.value;
       const thePass = this.registerForm.value.passwordGroup.password;
