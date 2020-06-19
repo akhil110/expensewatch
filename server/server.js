@@ -3,16 +3,15 @@ var app         = express();
 var bodyParser  = require('body-parser');
 var morgan      = require('morgan');
 var mongoose    = require('mongoose');
-
 var jwt    = require('jsonwebtoken'); 
-var config = require('./config'); 
 
+var config = require('./config'); 
 var user = require('./routes/user.js');
 var expense = require('./routes/expense.js');
 
 var port = process.env.PORT || config.serverport;
 
-mongoose.connect(config.database, function(err){
+mongoose.connect(config.database, { useNewUrlParser: true, useUnifiedTopology: true }, function(err){
 	if(err){
 		console.log('Error connecting database, please check if MongoDB is running.');
 	}else{

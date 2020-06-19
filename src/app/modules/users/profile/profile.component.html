@@ -1,0 +1,70 @@
+<div class="container">
+	<h3 class="mt-3">Add Expense</h3>
+	<hr>
+
+	<div class="form-wrapper">
+		<form [formGroup]="profileForm" (ngSubmit)="updateUser(profileForm.value)" novalidate autocomplete="off">
+			<div class="form-group row">
+				<label for="username" class="col-sm-2 col-form-label">Username</label>
+				<div class="input-group col-sm-10">
+					<div class="input-group-prepend">
+						<div class="input-group-text"><i class="fas fa-user"></i></div>
+					</div>
+					<input type="text" class="form-control" id="username" value="{{ userObj.username }}" readonly>
+				</div>
+			</div>
+			<div class="form-group row">
+				<label for="fname" class="col-sm-2 col-form-label">First Name</label>
+				<div class="input-group col-sm-10">
+					<div class="input-group-prepend">
+						<div class="input-group-text"><i class="fas fa-font"></i></div>
+					</div>
+					<input type="text" class="form-control" [ngClass]="{'is-invalid': profileForm.get('firstname').touched && profileForm.get('firstname').errors?.required}" id="fname" [formControl]="firstname" placeholder="Enter your first name" maxlength="50">
+					<div class="invalid-feedback" *ngIf="profileForm.get('firstname').touched && profileForm.get('firstname').errors?.required">
+						Please enter your first name
+					</div>
+				</div>
+			</div>
+			<div class="form-group row">
+				<label for="lname" class="col-sm-2 col-form-label">Last Name</label>
+				<div class="input-group col-sm-10">
+					<div class="input-group-prepend">
+						<div class="input-group-text"><i class="fas fa-bold"></i></div>
+					</div>
+					<input type="text" class="form-control" [ngClass]="{'is-invalid': profileForm.get('lastname').touched && profileForm.get('lastname').errors?.required}" [formControl]="lastname" id="lname" placeholder="Enter your last name" maxlength="50">
+					<div class="invalid-feedback" *ngIf="profileForm.get('lastname').touched && profileForm.get('lastname').errors?.required">
+						Please enter your last name
+					</div>
+				</div>
+			</div>
+			<div class="form-group row">
+				<label for="email" class="col-sm-2 col-form-label">Email</label>
+				<div class="input-group col-sm-10">
+					<div class="input-group-prepend">
+						<div class="input-group-text"><i class="fas fa-at"></i></div>
+					</div>
+					<input type="email" class="form-control" [ngClass]="{'is-invalid': profileForm.get('email').touched && (profileForm.get('email').invalid || profileForm.get('email').errors)}" [formControl]="email" id="email" placeholder="Enter email" maxlength="256">
+					<div class="invalid-feedback" *ngIf="profileForm.get('email').touched && (profileForm.get('email').invalid || profileForm.get('email').errors?.required)">
+						Please enter a valid email
+					</div>
+				</div>
+			</div>
+			<div class="form-group row">
+				<label for="lastlogin" class="col-sm-2 col-form-label">Last Login</label>
+				<div class="input-group col-sm-10">
+					<div class="input-group-prepend">
+						<div class="input-group-text"><i class="fas fa-calendar-alt"></i></div>
+					</div>
+					<input type="text" class="form-control" id="lastlogin" value="{{ userObj.lastlogin | date:'medium' }}"readonly>
+				</div>
+			</div>
+			<div class="form-group row">
+				<label class="col-sm-2 col-form-label"></label>
+				<div class="col-sm-10">
+					<button type="submit" class="btn btn-primary" [disabled]="profileForm.invalid">Update</button> &nbsp;
+					<button type="reset" class="btn btn-secondary">Cancel</button>
+				</div>
+			</div>
+		</form>
+	</div>
+</div>

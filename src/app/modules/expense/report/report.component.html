@@ -1,0 +1,118 @@
+<div class="container">
+	<h3 class="mt-3">Expense Report</h3>
+	<hr>
+
+	<div class="card" style="border-color: #029acf;">
+		<div class="card-header" style="background-color: #029acf; color: #fff;">
+			Show Report
+		</div>
+		<div class="card-body">
+			<form [formGroup]="reportForm" (ngSubmit)="getReport(reportForm.value)" novalidate autocomplete="off">
+				<div class="row">
+					<div class="col-sm-12 col-lg-2">
+						<div class="form-check form-check-inline">
+							<input class="form-check-input" type="radio" name="report" value="opt1" id="current_month" [formControl]="report" checked>
+							<label class="form-check-label" for="current_month">Current month</label>
+						</div>
+					</div>
+					<div class="col-sm-12 col-lg-8">
+						<div class="form-check form-check-inline">
+							<input class="form-check-input" type="radio" name="report" value="opt2" id="dt_range" [formControl]="report">
+							<label class="form-check-label" for="dt_range">Date Range</label>
+						</div>
+						<div class="row" style="padding: 8px">
+							<div class="col-sm-12 col-md-6">
+								<div class="form-group">
+									<label for="frmdt">From Date</label>
+									<div class="input-group">
+										<div class="input-group-prepend">
+											<div class="input-group-text"><i class="fas fa-calendar-alt"></i></div>
+										</div>
+										<input type="date" class="form-control" [ngClass]="{'is-invalid': reportForm.get('startdt').touched && reportForm.get('startdt').errors?.required}" [formControl]="startdt" id="frmdt" placeholder="yyyy-mm-dd">
+										<div class="invalid-feedback" *ngIf="reportForm.get('startdt').touched && reportForm.get('startdt').errors?.required">
+											Please enter start date
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="col-sm-12 col-md-6">
+								<div class="form-group">
+									<label for="todt">To Date</label>
+									<div class="input-group">
+										<div class="input-group-prepend">
+											<div class="input-group-text"><i class="fas fa-calendar-alt"></i></div>
+										</div>
+										<input type="date" class="form-control" [ngClass]="{'is-invalid': reportForm.get('enddt').touched && reportForm.get('enddt').errors?.required}" [formControl]="enddt" id="todt" placeholder="yyyy-mm-dd">
+										<div class="invalid-feedback" *ngIf="reportForm.get('enddt').touched && reportForm.get('enddt').errors?.required">
+											Please enter end date
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-sm-12 col-lg-1">
+						<div class="form-check form-check-inline">
+							<input class="form-check-input" type="radio" name="report" value="opt3" id="all" [formControl]="report">
+							<label class="form-check-label" for="all">All</label>
+						</div>
+					</div>
+					<div class="col-sm-12 col-lg-1">
+						<button type="submit" class="btn btn-primary" [disabled]="reportForm.invalid">GO</button>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+	<br>
+	<div class="card" style="border-color: #dc3545;" *ngIf="expenses && totalrows < 1">
+		<div class="card-header" style="background-color: #dc3545; color: #fff;">
+			No expense found
+		</div>
+		<div class="card-body">
+			It seems like you havn't entered any expense for the selected criteria. Please enter you expenses <a routerLink="/expense/addexpense">here</a>.
+		</div>
+	</div>
+	<div class="card" *ngIf="expenses && totalrows > 0">
+		<div class="card-header">
+			Total expense <u>{{reportTitle}}</u> is <i>{{ exptotal?.total | currency }}</i>
+		</div>
+		<div class="card-body">
+			<div class="table-responsive">
+				<table class="table table-striped">
+					<thead>
+						<tr>
+							<th width="15%"><a style="cursor:pointer" (click)="sortExpense('expensedate')">Date <i class="fas fa-{{ dtSortIco }}"></i></a></th>
+							<th width="15%"><a style="cursor:pointer" (click)="sortExpense('expensetype')">Account <i class="fas fa-{{ acSortIco }}"></i></a></th>
+							<th width="45%">Description</th>
+							<th width="10%" class="text-right"><a style="cursor:pointer" (click)="sortExpense('expenseamt')">Amount <i class="fas fa-{{ amSortIco }}"></i></a></th>
+							<th width="15%">Action</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr *ngFor='let exp of expenses; let expIndex = index'>
+							<td>{{ exp.expensedate | date: 'd MMM y'}}</td>
+							<td>{{ exp.expensetype}}</td>
+							<td>{{ exp.expensedesc}}</td>
+							<td class="text-right">{{ exp.expenseamt | currency }}</td>
+							<td>
+								<button type="button" class="btn btn-primary btn-sm" (click)="showExpense(exp._id)"><i class="fas fa-eye"></i></button>&nbsp;
+								<button type="button" class="btn btn-secondary btn-sm" (click)="editExpense(exp._id)"><i class="fas fa-edit"></i></button>&nbsp;
+								<button type="button" class="btn btn-danger btn-sm" (click)="confirmDel(expIndex, exp._id)"><i class="fas fa-trash-alt"></i></button>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+
+			<nav aria-label="pagination" *ngIf="expenses && totalrows > 10">
+				<ul class="pagination pagination-sm justify-content-center">
+					<li class="page-item" *ngFor="let item of createPager(pgCounter); let idx = index" [ngClass]="{'active': qpage == idx + 1 }">
+						<a class="page-link" (click) = "setPage(idx + 1)">{{ idx + 1 }}</a>
+					</li>
+				</ul>
+			</nav>
+
+		</div>
+	</div><br>
+</div>

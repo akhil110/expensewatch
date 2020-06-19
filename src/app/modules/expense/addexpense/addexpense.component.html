@@ -1,0 +1,71 @@
+<div class="container">
+	<h3 class="mt-3">{{ pgTitle }} Expense</h3>
+	<hr>
+
+	<div class="form-wrapper">
+		<form [formGroup]="expenseForm" (ngSubmit)="saveExpense(expenseForm.value)" novalidate autocomplete="off">
+			<div class="form-group row">
+				<label for="expdt" class="col-sm-2 col-form-label">Date</label>
+				<div class="input-group col-sm-10">
+					<div class="input-group-prepend">
+						<div class="input-group-text"><i class="fas fa-calendar-alt"></i></div>
+					</div>
+					<input type="date" [max]="maxDt" class="form-control" [ngClass]="{'is-invalid': expenseForm.get('expdate').touched && expenseForm.get('expdate').errors?.required}" [formControl]="expdate" id="expdt" placeholder="yyyy-mm-dd">
+					<div class="invalid-feedback" *ngIf="expenseForm.get('expdate').touched && expenseForm.get('expdate').errors?.required">
+						Please select a date
+					</div>
+				</div>
+			</div>
+			<div class="form-group row">
+				<label for="exptyp" class="col-sm-2 col-form-label">Account</label>
+				<div class="input-group col-sm-10">
+					<div class="input-group-prepend">
+						<div class="input-group-text"><i class="fas fa-file-invoice-dollar"></i></div>
+					</div>
+					<select class="form-control" [ngClass]="{'is-invalid': expenseForm.get('expaccount').touched && expenseForm.get('expaccount').errors?.required}" [formControl]="expaccount" id="exptyp">
+						<option>Select account</option>
+            <option *ngFor="let a of acc" >{{a}}</option>
+					</select>
+					<div class="invalid-feedback" *ngIf="expenseForm.get('expaccount').touched && expenseForm.get('expaccount').errors?.required">
+						Please select expense account
+					</div>
+				</div>
+			</div>
+			<div class="form-group row">
+				<label for="expamt" class="col-sm-2 col-form-label">Amount</label>
+				<div class="input-group col-sm-10">
+					<div class="input-group-prepend">
+						<div class="input-group-text"><i class="fas fa-dollar-sign"></i></div>
+					</div>
+					<input type="number" class="form-control" [ngClass]="{'is-invalid': expenseForm.get('expamt').touched && (expenseForm.get('expamt').invalid || expenseForm.get('expamt').errors)}" [formControl]="expamt" id="expamt" placeholder="Enter amount">
+					<div class="invalid-feedback" *ngIf="expenseForm.get('expamt').invalid || expenseForm.get('expamt').errors">
+						<span *ngIf="expenseForm.get('expamt').errors.required">
+							Please enter amount
+						</span>
+						<span *ngIf="expenseForm.get('expamt').errors.pattern">
+							Please enter a valid amount
+						</span>
+					</div>
+				</div>
+			</div>
+			<div class="form-group row">
+				<label for="expdesc" class="col-sm-2 col-form-label">Description</label>
+				<div class="input-group col-sm-10">
+					<div class="input-group-prepend">
+						<div class="input-group-text"><i class="fas fa-clipboard"></i></div>
+					</div>
+					<textarea class="form-control" id="expdesc" rows="3" [formControl]="expdesc" placeholder="Description"></textarea>
+				</div>
+			</div>
+			<div class="form-group row">
+				<label class="col-sm-2 col-form-label"></label>
+				<div class="col-sm-10">
+					<button type="submit" class="btn btn-primary" [disabled]="expenseForm.invalid">{{ btnLbl }}</button> &nbsp;
+					<button type="reset" class="btn btn-secondary" *ngIf="btnLbl == 'Submit'">Cancel</button>
+					<button type="reset" class="btn btn-secondary" *ngIf="btnLbl == 'Update'" (click)="onBack()">Back</button>
+				</div>
+			</div>
+		</form>
+	</div>
+	
+</div>

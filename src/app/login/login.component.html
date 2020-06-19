@@ -1,0 +1,20 @@
+<div class="container">
+	<form class="form-signin" [formGroup]="loginForm" (ngSubmit)="loginUser(loginForm.value)" novalidate autocomplete="off">
+		<h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
+		<label for="inputUser" class="sr-only">Username</label>
+		<input type="text" id="inputUser" class="form-control" [ngClass]="{'is-invalid': loginForm.get('username').touched && loginForm.get('username').errors?.required}" [formControl]="username" placeholder="Username">
+		<div class="invalid-feedback" *ngIf="loginForm.get('username').touched && loginForm.get('username').errors?.required">
+			Enter username
+		</div>
+		<label for="inputPassword" class="sr-only">Password</label>
+		<input type="password" id="inputPassword" class="form-control" [ngClass]="{'is-invalid': loginForm.get('password').touched && loginForm.get('password').errors?.required}" [formControl]="password" placeholder="Password">
+		<div class="invalid-feedback" *ngIf="loginForm.get('password').touched && loginForm.get('password').errors?.required">
+			Enter password
+		</div>
+		<div class="register">
+			<a routerLink="/user/register">New User? Register</a>
+		</div>
+		<button class="btn btn-lg btn-primary btn-block" type="submit" [disabled]="loginForm.invalid">Sign in</button>
+	</form>
+</div>
+

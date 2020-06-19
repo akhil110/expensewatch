@@ -6,26 +6,53 @@ body {
   margin-bottom: 60px;
 }
 
-.navbar-nav>li>a.active{
-  color: #d9230f !important;
-}
-
-.pagecontainer {
-  padding: 50px 15px 0;
+.navbar-dark .navbar-brand {
+	color: #fff;
+	padding: 0;
+	letter-spacing: 1px;
+	font-weight: 500;
+	font-size: 1.35em;
+	margin-right: 3rem;
 }
 
 .container .text-muted {
   margin: 20px 0;
 }
 
-code {
-  font-size: 80%;
+.form-signin {
+  width: 100%;
+  max-width: 330px;
+  margin: 150px auto 0 auto;
+}
+.form-signin .form-control {
+  position: relative;
+  box-sizing: border-box;
+  height: auto;
+  padding: 10px;
+  font-size: 16px;
+}
+.form-signin .form-control:focus {
+  z-index: 2;
+}
+.form-signin .register {
+  text-align: center;
+  padding: 5px 5px 12px 5px;
+}
+.form-signin input[type="text"] {
+  margin-bottom: -1px;
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0;
+}
+.form-signin input[type="password"] {
+  margin-bottom: 10px;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
 }
 
-.form-signin {
-    max-width: 330px;
-    padding: 15px;
-    margin: 10% auto;
+.form-wrapper {
+  width: 85%;
+  margin: 30px auto 0 auto;
+  padding: 0 0 30px 0;
 }
 
 .form-ele{
@@ -42,61 +69,6 @@ code {
   color: #cccccc;
 }
 
-.pagination>li>a.selected{
-  color: #ffffff;
-  background-color: #f75f4e;
-  border-color: #f75f4e;
-}
-
-ul.menu {
-  text-align: left;
-  display: inline;
-  margin: 0;
-  padding: 15px 4px 17px 0;
-  list-style: none;
-}
-ul.menu li {
-  display: inline-block;
-  margin-right: -4px;
-  position: relative;
-  padding: 15px 20px;
-  background: #fff;
-  cursor: pointer;
-  transition: all 0.2s;
-}
-ul.menu li:hover {
-  background: #555;
-  color: #fff;
-}
-ul.menu li ul {
-  padding: 0;
-  position: absolute;
-  top: 48px;
-  left: 0;
-  width: 150px;
-  
-  box-shadow: none;
-  display: none;
-  opacity: 0;
-  visibility: hidden;
-  
-}
-ul.menu li ul li, ul.menu li ul li a { 
-  background: #555; 
-  display: block; 
-  color: #fff;
-  text-decoration: none;
-}
-ul.menu li ul li:hover, ul.menu li ul li a:hover { 
-  background: #666;
-  text-decoration: none;
-  }
-ul.menu li:hover ul {
-  display: block;
-  opacity: 1;
-  visibility: visible;
-}
-
 .footer {
   position: absolute;
   bottom: 0;
@@ -108,4 +80,11 @@ ul.menu li:hover ul {
 .footer > .container {
   padding-right: 15px;
   padding-left: 15px;
+}
+
+@media only screen and (max-width: 768px) {
+  .form-wrapper {
+    width: auto;
+    margin: 30px auto 0 auto;
+  }
 }

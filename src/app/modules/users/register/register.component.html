@@ -1,0 +1,111 @@
+<div class="container">
+	<h3 class="mt-3">Register</h3>
+	<hr>
+
+	<div class="form-wrapper">
+		<form [formGroup]="registerForm" (ngSubmit)="registerUser(registerForm.value)" novalidate autocomplete="off">
+			<div class="form-group row">
+				<label for="fname" class="col-sm-2 col-form-label">First Name</label>
+				<div class="input-group col-sm-10">
+					<div class="input-group-prepend">
+						<div class="input-group-text"><i class="fas fa-font"></i></div>
+					</div>
+					<input type="text" class="form-control" [ngClass]="{'is-invalid': registerForm.get('firstname').touched && registerForm.get('firstname').errors?.required}" [formControl]="firstname" id="fname" placeholder="Enter your first name" maxlength="50">
+					<div class="invalid-feedback" *ngIf="registerForm.get('firstname').touched && registerForm.get('firstname').errors?.required">
+						Please enter your first name
+					</div>
+				</div>
+				
+			</div>
+			<div class="form-group row">
+				<label for="lname" class="col-sm-2 col-form-label">Last Name</label>
+				<div class="input-group col-sm-10">
+					<div class="input-group-prepend">
+						<div class="input-group-text"><i class="fas fa-bold"></i></div>
+					</div>
+					<input type="text" class="form-control" [ngClass]="{'is-invalid': registerForm.get('lastname').touched && registerForm.get('lastname').errors?.required}" [formControl]="lastname" id="lname" placeholder="Enter your last name" maxlength="50">
+					<div class="invalid-feedback" *ngIf="registerForm.get('lastname').touched && registerForm.get('lastname').errors?.required">
+						Please enter your last name
+					</div>
+				</div>
+			</div>
+			<div class="form-group row">
+				<label for="email" class="col-sm-2 col-form-label">Email</label>
+				<div class="input-group col-sm-10">
+					<div class="input-group-prepend">
+						<div class="input-group-text"><i class="fas fa-at"></i></div>
+					</div>
+					<input type="email" class="form-control" [ngClass]="{'is-invalid': registerForm.get('email').touched && (registerForm.get('email').invalid || registerForm.get('email').errors)}" [formControl]="email" id="email" placeholder="Enter email" maxlength="256">
+					<div class="invalid-feedback" *ngIf="registerForm.get('email').touched && (registerForm.get('email').invalid || registerForm.get('email').errors?.required)">
+						Please enter a valid email
+					</div>
+				</div>
+			</div>
+			<div class="form-group row">
+				<label for="username" class="col-sm-2 col-form-label">Username</label>
+				<div class="input-group col-sm-10">
+					<div class="input-group-prepend">
+						<div class="input-group-text"><i class="fas fa-user"></i></div>
+					</div>
+					<input type="text" class="form-control" [ngClass]="{'is-invalid': registerForm.get('username').touched && (registerForm.get('username').invalid || registerForm.get('username').errors)}" [formControl]="username" id="username" placeholder="Enter a username" maxlength="20">
+					<div class="invalid-feedback" *ngIf="registerForm.get('username').invalid || registerForm.get('username').errors">
+						<span *ngIf="registerForm.get('username').errors.required">
+							Please enter username
+						</span>
+						<span *ngIf="registerForm.get('username').errors.minlength">
+								Username must be longer than 3 characters.
+						</span>
+						<span *ngIf="registerForm.get('username').errors.maxlength">
+								Username cannot be longer than 16 characters.
+						</span>
+					</div>
+				</div>
+			</div>
+
+			<div formGroupName="passwordGroup">
+				<div class="form-group row">
+					<label for="password" class="col-sm-2 col-form-label">Password</label>
+					<div class="input-group col-sm-10">
+						<div class="input-group-prepend">
+							<div class="input-group-text"><i class="fas fa-asterisk"></i></div>
+						</div>
+						<input type="password" class="form-control" [ngClass]="{'is-invalid': registerForm.get('passwordGroup.password').touched && (registerForm.get('passwordGroup.password').invalid || registerForm.get('passwordGroup.password').errors)}" [formControl]="password" id="password" placeholder="Enter password" maxlength="16">
+						<div class="invalid-feedback" *ngIf="registerForm.get('passwordGroup.password').invalid || registerForm.get('passwordGroup.password').errors">
+							<span *ngIf="registerForm.get('passwordGroup.password').errors.required">
+								Please enter password
+							</span>
+							<span *ngIf="registerForm.get('passwordGroup.password').errors.pattern">
+								Password must contain one letter, number and a special character
+							</span>
+						</div>
+					</div>
+				</div>
+				<div class="form-group row">
+					<label for="retypepass" class="col-sm-2 col-form-label">Retype Password</label>
+					<div class="input-group col-sm-10">
+						<div class="input-group-prepend">
+							<div class="input-group-text"><i class="fas fa-asterisk"></i></div>
+						</div>
+						<input type="password" class="form-control" [ngClass]="{'is-invalid': (registerForm.get('passwordGroup.retypepass').touched || registerForm.get('passwordGroup.retypepass').dirty) && (registerForm.get('passwordGroup.retypepass').errors || registerForm.get('passwordGroup').errors)}" [formControl]="retypepass" id="retypepass" placeholder="Confirm password" maxlength="16">
+						<div class="invalid-feedback" *ngIf="(registerForm.get('passwordGroup.retypepass').touched || registerForm.get('passwordGroup.retypepass').dirty) && (registerForm.get('passwordGroup.retypepass').errors || registerForm.get('passwordGroup').errors)">
+							<span *ngIf="registerForm.get('passwordGroup.retypepass').value === '' && registerForm.get('passwordGroup.retypepass').errors?.required">
+								Please confirm your password
+							</span>
+							<span *ngIf="registerForm.get('passwordGroup.retypepass').value !== '' && registerForm.get('passwordGroup').errors?.mismatchedPassword">
+								Password do not match
+							</span>
+						</div>
+					</div>
+				</div>
+			</div>
+			
+			<div class="form-group row">
+				<label class="col-sm-2 col-form-label"></label>
+				<div class="col-sm-10">
+					<button type="submit" class="btn btn-primary" [disabled]="registerForm.invalid">Submit</button> &nbsp;
+					<button type="reset" class="btn btn-secondary">Cancel</button>
+				</div>
+			</div>
+		</form>
+	</div>
+</div>
