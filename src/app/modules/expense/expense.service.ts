@@ -3,6 +3,7 @@ import { HttpClient, HttpHeaders  } from '@angular/common/http';
 
 import {throwError } from 'rxjs';
 import { tap, retry, catchError } from 'rxjs/operators';
+import { environment } from '../../../environments/environment';
 
 @Injectable({
 	providedIn: 'root'
@@ -30,7 +31,7 @@ export class ExpenseService {
 	}
 
 	saveExpense(userid: string, oExpense: any) {
-		return this.http.post(`http://localhost:1978/api/expense/${userid}`, JSON.stringify(oExpense), this.buildHeader()).pipe(
+		return this.http.post(`${environment.baseUrl}/api/expense/${userid}`, JSON.stringify(oExpense), this.buildHeader()).pipe(
 			// tap(data => console.log('All: ' + JSON.stringify(data))),
 			retry(3),
 			catchError(this.handleError)
@@ -38,7 +39,7 @@ export class ExpenseService {
 	}
 
 	getExpenses(userid: string, oExpense: any) {
-		return this.http.post(`http://localhost:1978/api/expense/report/${userid}`, JSON.stringify(oExpense), this.buildHeader()).pipe(
+		return this.http.post(`${environment.baseUrl}/api/expense/report/${userid}`, JSON.stringify(oExpense), this.buildHeader()).pipe(
 			// tap(data => console.log('All: ' + JSON.stringify(data))),
 			retry(3),
 			catchError(this.handleError)
@@ -46,7 +47,7 @@ export class ExpenseService {
 	}
 
 	getExpenseTotal(userid: string, oExpense: any) {
-		return this.http.post(`http://localhost:1978/api/expense/total/${userid}`, JSON.stringify(oExpense), this.buildHeader()).pipe(
+		return this.http.post(`${environment.baseUrl}/api/expense/total/${userid}`, JSON.stringify(oExpense), this.buildHeader()).pipe(
 			// tap(data => console.log('All: ' + JSON.stringify(data))),
 			retry(3),
 			catchError(this.handleError)
@@ -54,7 +55,7 @@ export class ExpenseService {
 	}
 
 	getExpense(expid: string) {
-		return this.http.get(`http://localhost:1978/api/expense/${expid}`, this.buildHeader()).pipe(
+		return this.http.get(`${environment.baseUrl}/api/expense/${expid}`, this.buildHeader()).pipe(
 			// tap(data => console.log('All: ' + JSON.stringify(data))),
 			retry(3),
 			catchError(this.handleError)
@@ -62,7 +63,7 @@ export class ExpenseService {
 	}
 
 	delExpense(expid: string) {
-		return this.http.delete(`http://localhost:1978/api/expense/${expid}`, this.buildHeader()).pipe(
+		return this.http.delete(`${environment.baseUrl}/api/expense/${expid}`, this.buildHeader()).pipe(
 			// tap(data => console.log('All: ' + JSON.stringify(data))),
 			retry(3),
 			catchError(this.handleError)

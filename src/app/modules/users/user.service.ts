@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders  } from '@angular/common/http';
-
 import {throwError } from 'rxjs';
 import { tap, retry, catchError } from 'rxjs/operators';
+import { environment } from '../../../environments/environment';
 
 @Injectable({
 	providedIn: 'root'
@@ -30,7 +30,7 @@ export class UserService {
 	}
 
 	register(oUser: any) {
-		return this.http.post('http://localhost:1978/register', JSON.stringify(oUser), this.buildHeader()).pipe(
+		return this.http.post(`${environment.baseUrl}/register`, JSON.stringify(oUser), this.buildHeader()).pipe(
 			// tap(data => console.log('All: ' + JSON.stringify(data))),
 			retry(3),
 			catchError(this.handleError)
@@ -38,7 +38,7 @@ export class UserService {
 	}
 
 	getUser(userid: string) {
-		return this.http.get(`http://localhost:1978/api/user/${userid}`, this.buildHeader()).pipe(
+		return this.http.get(`${environment.baseUrl}/api/user/${userid}`, this.buildHeader()).pipe(
 			// tap(data => console.log('All: ' + JSON.stringify(data))),
 			retry(3),
 			catchError(this.handleError)
@@ -46,7 +46,7 @@ export class UserService {
 	}
 
 	updateUser(userid: string, oUser: any) {
-		return this.http.put(`http://localhost:1978/api/user/${userid}`, JSON.stringify(oUser), this.buildHeader()).pipe(
+		return this.http.put(`${environment.baseUrl}/api/user/${userid}`, JSON.stringify(oUser), this.buildHeader()).pipe(
 			// tap(data => console.log('All: ' + JSON.stringify(data))),
 			retry(3),
 			catchError(this.handleError)
@@ -54,7 +54,7 @@ export class UserService {
 	}
 
 	updatePassword(userid: string, oUser: any){
-		return this.http.put(`http://localhost:1978/api/password/${userid}`, JSON.stringify(oUser), this.buildHeader()).pipe(
+		return this.http.put(`${environment.baseUrl}/api/password/${userid}`, JSON.stringify(oUser), this.buildHeader()).pipe(
 			// tap(data => console.log('All: ' + JSON.stringify(data))),
 			retry(3),
 			catchError(this.handleError)

@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders  } from '@angular/common/http';
 import { IUser } from '../models/users';
-import {throwError } from 'rxjs';
+import { throwError } from 'rxjs';
 import { tap, retry, catchError } from 'rxjs/operators';
+import { environment } from '../../environments/environment';
 
 @Injectable({
 	providedIn: 'root'
@@ -36,7 +37,7 @@ export class AuthService {
 	}
 
 	login(oUser: any) {
-		return this.http.post('http://localhost:1978/api/login', JSON.stringify(oUser), this.buildHeader()).pipe(
+		return this.http.post(`${environment.baseUrl}/api/login`, JSON.stringify(oUser), this.buildHeader()).pipe(
 			tap((response: any) => {
 				if (response.success) {
 					this.currentUser = response.message as IUser;

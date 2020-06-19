@@ -3,7 +3,8 @@ var app         = express();
 var bodyParser  = require('body-parser');
 var morgan      = require('morgan');
 var mongoose    = require('mongoose');
-var jwt    = require('jsonwebtoken'); 
+var os 			= require('os');
+var jwt         = require('jsonwebtoken'); 
 
 var config = require('./config'); 
 var user = require('./routes/user.js');
@@ -22,7 +23,6 @@ mongoose.connect(config.database, { useNewUrlParser: true, useUnifiedTopology: t
 // use body parser so we can get info from POST and/or URL parameters
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(require('body-parser').json({ type : '*/*' }));
-
 // use morgan to log requests to the console
 app.use(morgan('dev'));
 
@@ -38,7 +38,7 @@ app.use(function(req, res, next) {
 // basic routes
 
 app.get('/', function(req, res) {
-	res.send('Expense Watch API is running at http://localhost:' + port + '/api');
+    res.send('Expense Watch API is running at '+ os.hostname() + ':' + port + '/api');
 });
 
 app.post('/register', user.signup);
@@ -75,4 +75,4 @@ apiRoutes.post('/expense/report/:id', expense.expensereport); //API returns expe
 
 // kick off the server 
 app.listen(port);
-console.log('Expense Watch app is listening at http://localhost:' + port);
+console.log('Expense Watch app is listening at '+ os.hostname() + ':' + port);
