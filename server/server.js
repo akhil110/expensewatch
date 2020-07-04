@@ -23,6 +23,8 @@ mongoose.connect(config.database, { useNewUrlParser: true, useUnifiedTopology: t
 // use body parser so we can get info from POST and/or URL parameters
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(require('body-parser').json({ type : '*/*' }));
+
+app.use(express.static(__dirname + '/dist'));
 // use morgan to log requests to the console
 app.use(morgan('dev'));
 

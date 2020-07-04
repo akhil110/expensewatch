@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router, ActivatedRoute } from '@angular/router';
+import { Router } from '@angular/router';
 import { UserService } from '../user.service';
 import { AuthService } from '../../../services/auth.service';
 import { IUser } from '../../../models/users';
@@ -34,7 +34,11 @@ export class ProfileComponent implements OnInit {
 			email: this.email
 		});
 
-		this.userService.getUser(this.userObj.userid).subscribe((data: any) => {
+		this.getUser(this.userObj.userid);
+	}
+
+	getUser(id: string): void {
+		this.userService.getUser(id).subscribe((data: any) => {
 			if (data.success === false) {
 				if (data.errcode){
 					this.authService.logout();

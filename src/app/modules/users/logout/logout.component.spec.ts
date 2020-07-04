@@ -1,25 +1,34 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { LogoutComponent } from './logout.component';
 
 describe('LogoutComponent', () => {
-	let component: LogoutComponent;
-	let fixture: ComponentFixture<LogoutComponent>;
-
-	beforeEach(async(() => {
-		TestBed.configureTestingModule({
-			declarations: [ LogoutComponent ]
-		})
-		.compileComponents();
-	}));
+	let fixture: LogoutComponent;
+	let authServiceMock: any;
+	let routerMock: any;
 
 	beforeEach(() => {
-		fixture = TestBed.createComponent(LogoutComponent);
-		component = fixture.componentInstance;
-		fixture.detectChanges();
+		authServiceMock = {
+			logout: jest.fn()
+		};
+		routerMock = {
+			navigate: jest.fn()
+		};
+
+		fixture = new LogoutComponent(
+			authServiceMock,
+			routerMock
+		);
+		fixture.ngOnInit();
 	});
 
-	it('should create', () => {
-		expect(component).toBeTruthy();
+	describe('Test: ngOnInit', () => {
+
+		it('should call logout', () => {
+			expect(authServiceMock.logout).toBeDefined();
+		});
+
+		it('should navigate back', () => {
+			expect(routerMock.navigate).toBeDefined();
+		});
+
 	});
 });

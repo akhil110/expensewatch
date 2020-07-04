@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders  } from '@angular/common/http';
 import { IUser } from '../models/users';
-import { throwError } from 'rxjs';
+import { Observable, throwError } from 'rxjs';
 import { tap, retry, catchError } from 'rxjs/operators';
 import { environment } from '../../environments/environment';
 
@@ -36,7 +36,7 @@ export class AuthService {
 		return !!this.currentUser;
 	}
 
-	login(oUser: any) {
+	login(oUser: any): Observable<any> {
 		return this.http.post(`${environment.baseUrl}/api/login`, JSON.stringify(oUser), this.buildHeader()).pipe(
 			tap((response: any) => {
 				if (response.success) {
