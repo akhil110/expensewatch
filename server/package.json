@@ -1,0 +1,22 @@
+{
+    "name": "expensewatch",
+    "version": "1.0.0",
+    "engines": {
+        "node": "13.x"
+    },
+    "scripts": {
+        "start": "node server/server.js"
+    },
+    "dependencies": {
+        "express": "^4.15.2",
+        "ejs": ">= 0.0.1",
+        "body-parser": "^1.17.1",
+        "morgan": "^1.8.1",
+        "bcrypt-nodejs": "0.0.3",
+        "jsonwebtoken": "^7.3.0",
+        "mongoose": "^5.9.19",
+        "mongoose-paginate": "^5.0.3"
+    },
+    "author": "Akhilesh Srivastava",
+    "license": "ISC"
+}
